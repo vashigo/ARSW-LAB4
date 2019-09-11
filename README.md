@@ -18,7 +18,7 @@
         <img src=".\img\part1-2.png" />
         </p>
 
-    + ## Configure su aplicación para que ofrezca el recurso "/blueprints", de manera que cuando se le haga una petición GET, retorne -en formato jSON- el conjunto de todos los planos. Para esto:
+     + ## Configure su aplicación para que ofrezca el recurso "/blueprints", de manera que cuando se le haga una petición GET, retorne -en formato jSON- el conjunto de todos los planos. Para esto:
 
         + Modifique la clase BlueprintAPIController teniendo en cuenta el siguiente ejemplo de controlador REST hecho con SpringMVC/SpringBoot:
 
@@ -57,5 +57,18 @@
             @Autowired
             BlueprintsServices bpServices;
             ```
+
+     + ## Verifique el funcionamiento de a aplicación lanzando la aplicación con maven:
+
+        ```java	
+	$ mvn compile
+	$ mvn spring-boot:run
+        ```
+
+        Y luego enviando una petición GET a: http://localhost:8080/blueprints. Rectifique que, como respuesta, se obtenga un objeto jSON con una lista que contenga el detalle de los planos suministados por defecto, y que se haya aplicado el filtrado de puntos correspondiente.
+
+        <p align="center">
+        <img src=".\img\part1-4.png" />
+        </p>
         
 
