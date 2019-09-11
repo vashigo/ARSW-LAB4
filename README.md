@@ -68,7 +68,7 @@
         Y luego enviando una petición GET a: http://localhost:8080/blueprints. Rectifique que, como respuesta, se obtenga un objeto jSON con una lista que contenga el detalle de los planos suministados por defecto, y que se haya aplicado el filtrado de puntos correspondiente.
 
         <p align="center">
-        <img src=".\img\part1-4.PNG" />
+        <img src=".\img\part1-4.png" />
         </p>
         
 
