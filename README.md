@@ -76,5 +76,9 @@
         <p align="center">
         <img src=".\img\part1-5.png" />
         </p>    
-        
+            
+    + ## Modifique el controlador para que ahora, acepte peticiones GET al recurso /blueprints/{author}/{bpname}, el cual retorne usando una representación jSON sólo UN plano, en este caso el realizado por {author} y cuyo nombre sea {bpname}. De nuevo, si no existe dicho autor, se debe responder con el código de error HTTP 404.
 
+        <p align="center">
+        <img src=".\img\part1-6.png" />
+        </p>  
