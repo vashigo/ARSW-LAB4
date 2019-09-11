@@ -53,20 +53,18 @@ public class BlueprintAPIController {
 
         try {
             Map<String, Blueprint> blueprints = new HashMap();
-
             List<Blueprint> blueprintsArray = new ArrayList<>();
             blueprintsArray.addAll(bpServices.getAllBlueprints());
 
             for (Blueprint x : blueprintsArray) {
                 blueprints.put(x.getName(), x);
             }
-
             String codeToJson = new Gson().toJson(blueprints);
-
             return new ResponseEntity<>(codeToJson, HttpStatus.ACCEPTED);
+            
         } catch (BlueprintNotFoundException ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("No se han podido obtener los planos", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No se pudo obtener los planos", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -79,20 +77,18 @@ public class BlueprintAPIController {
     public ResponseEntity<?> getBlueprintsByAuthor(@PathVariable("authorName") String authorName) {
         try {
             Map<String, Blueprint> blueprints = new HashMap();
-
             List<Blueprint> blueprintsArray = new ArrayList<>();
             blueprintsArray.addAll(bpServices.getBlueprintsByAuthor(authorName));
 
             for (Blueprint x : blueprintsArray) {
                 blueprints.put(x.getName(), x);
             }
-
             String codeToJson = new Gson().toJson(blueprints);
-
             return new ResponseEntity<>(codeToJson, HttpStatus.ACCEPTED);
+            
         } catch (BlueprintNotFoundException ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("No se han podido obtener los planos", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No pudo obtener los planos por Autor", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -101,65 +97,58 @@ public class BlueprintAPIController {
             @PathVariable("bpName") String bpName) {
         try {
             Map<String, Blueprint> blueprints = new HashMap();
-
             blueprints.put(bpServices.getBlueprint(authorName, bpName).getName(),
                     bpServices.getBlueprint(authorName, bpName));
 
             String codeToJson = new Gson().toJson(blueprints);
-
             return new ResponseEntity<>(codeToJson, HttpStatus.ACCEPTED);
+            
         } catch (BlueprintNotFoundException ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("No se ha podido obtener el plano", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No pudo obtener el plano", HttpStatus.NOT_FOUND);
         }
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addNewBlueprint(@RequestBody String blueprint) throws BlueprintPersistenceException {
-        //Code Json example {"bp05":{"author":"Carlos","points":[{"x":9,"y":9},{"x":10,"y":10}],"name":"bp05"}}
+        //Json example 
+        //{"bp05":{"author":"Carlos","points":[{"x":9,"y":9},{"x":10,"y":10}],"name":"bp05"}}
         try {
-
-            //Pasar el String JSON a un Map
+            //String Json to Map
             Type listType = new TypeToken<Map<String, Blueprint>>() {
             }.getType();
             Map<String, Blueprint> result = new Gson().fromJson(blueprint, listType);
-
-            //Obtener las llaves del Map
+            //Map Keys
             Object[] nameKeys = result.keySet().toArray();
-
-            //Añadir el producto a la orden obteniendo los objetos en el Map
+            //Add product by getting Map objects
             bpServices.addNewBlueprint(result.get(nameKeys[0]));
-
             return new ResponseEntity<>(HttpStatus.CREATED);
 
         } catch (BlueprintPersistenceException ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("No se ha podido añadir el blueprint", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("No se pudo añadir el blueprint", HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "{authorName}/{bpName}")
     public ResponseEntity<?> updateABlueprint(@PathVariable("authorName") String authorName,
             @PathVariable("bpName") String bpName, @RequestBody String points) throws BlueprintNotFoundException {
-        //Code Json example {"1":[{"x":9,"y":9},{"x":10,"y":10}]}
+        //Json example 
+        //{"1":[{"x":9,"y":9},{"x":10,"y":10}]}
         try {
             Blueprint bpToUpdate = bpServices.getBlueprint(authorName, bpName);
-
-            //Pasar el String JSON a un Map
+            //String Json to Map
             Type listType = new TypeToken<Map<String, Point[]>>() {
             }.getType();
             Map<String, Point[]> result = new Gson().fromJson(points, listType);
-
-            //Obtener las llaves del Map
+            //Map Keys
             Object[] nameKeys = result.keySet().toArray();
-
             bpToUpdate.setPoints(Arrays.asList(result.get(nameKeys[0])));
-
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (BlueprintNotFoundException ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("No se ha podido actualizar el blueprint", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("No pudo actualizar el blueprint", HttpStatus.FORBIDDEN);
         }
     }
 
