@@ -9,13 +9,13 @@
      + ## Integre al proyecto base suministrado los Beans desarrollados en el ejercicio anterior. Sólo copie las clases, NO los archivos de configuración. Rectifique que se tenga correctamente configurado el esquema de inyección de dependencias con las anotaciones @Service y @Autowired:
 
         <p align="center">
-        <img src=".\img\part1-1.png" />
+        <img src=".\img\part1-1.PNG" />
         </p>
 
      + ## Modifique el bean de persistecia 'InMemoryBlueprintPersistence' para que por defecto se inicialice con al menos otros tres planos, y con dos asociados a un mismo autor.:
 
         <p align="center">
-        <img src=".\img\part1-2.png" />
+        <img src=".\img\part1-2.PNG" />
         </p>
 
      + ## Configure su aplicación para que ofrezca el recurso "/blueprints", de manera que cuando se le haga una petición GET, retorne -en formato jSON- el conjunto de todos los planos. Para esto:
@@ -61,14 +61,14 @@
      + ## Verifique el funcionamiento de a aplicación lanzando la aplicación con maven:
 
         ```java	
-	$ mvn compile
-	$ mvn spring-boot:run
+	    $ mvn compile
+	    $ mvn spring-boot:run
         ```
 
         Y luego enviando una petición GET a: http://localhost:8080/blueprints. Rectifique que, como respuesta, se obtenga un objeto jSON con una lista que contenga el detalle de los planos suministados por defecto, y que se haya aplicado el filtrado de puntos correspondiente.
 
         <p align="center">
-        <img src=".\img\part1-4.png" />
+        <img src=".\img\part1-4.PNG" />
         </p>
         
 
